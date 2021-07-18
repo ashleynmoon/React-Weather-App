@@ -4,7 +4,7 @@ import './Footer.css';
 export default function Footer() {
   return <div className="text-center" id="open-source-link">
     <a
-      href="https://github.com/ashleynmoon/weather-app-project-moon"
+      href="https://github.com/ashleynmoon/react-weather-app"
       target="_blank"
       rel="noreferrer"
       id="code-link"
