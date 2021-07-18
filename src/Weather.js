@@ -1,8 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
+import axios from "axios";
 import './App.css';
 
 export default function Weather() {
-  let weatherDescription = {
+  const [ready, setReady] = useState(false);
+  const [temperture, setTemperature] = useState(null);
+  function handleResponse(response){
+      console.log(response.data);
+      setTemperature(response.data.main.temp);
+  }
+
+let weatherDescription = {
     currentCity: "Detroit",
     dateAndTime: "Sunday June 6 9:00PM",
     description: "Overcast Clouds",
@@ -10,8 +18,10 @@ export default function Weather() {
     humidity: "55",
     wind: "1",
     imgUrl: "http://openweathermap.org/img/wn/04d@2x.png"
-  };
-  return (
+}
+
+if (ready){
+return (
     <div>
       <div className="container">
         <div className="weather-app">
@@ -60,7 +70,7 @@ export default function Weather() {
                 <ul>
                   <li>
                     <i className="fas fa-thermometer-half" id=""></i> Feels
-                    Like:
+                    Like:{" "}
                     <span id="feels">{weatherDescription.feelsLike}</span>°
                   </li>
                   <li>
@@ -98,4 +108,13 @@ export default function Weather() {
       <script src="src/index.js"></script>
     </div>
   );
+}
+else {
+  const apiKey = "6d17b1c8058ae49bbff41e55fd958e63";
+  let city = "Detroit";
+  let apiUrl = `api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+  axios.get(apiUrl).then(handleResponse);
+
+  return "Loading...";
+  } 
 }
