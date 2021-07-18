@@ -1,0 +1,22 @@
+#open-source-link {
+  color: #83936a;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 100px;
+  min-width: 600px;
+}
+
+#code-link {
+  color: #83936a;
+  text-decoration: none;
+}
+
+#code-link:hover {
+  color: #ad9dcb;
+  text-decoration: underline;
+  cursor: pointer;
+  opacity: 0.6;
+}

@@ -1,38 +1,121 @@
-.App {
+ul {
+  font-size: 18px;
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+  text-transform: capitalize;
+  font-size: 20px;
+}
+
+.body {
+  font-family: monospace;
+}
+
+#background {
+  position: fixed;
+  top: 0;
+  z-index: -1;
+}
+
+@media (min-aspect-ratio: 16/9) {
+  #background {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media (max-aspect-ratio: 16/9) {
+  #background {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.container {
+  margin-top: 80px;
+  min-width: 600px;
+  max-width: 900px;
+}
+
+.weather-app {
+  background: #111111;
+  border: 4px solid #bed3c3;
+  border-radius: 30px;
+  margin: 0 auto;
+  opacity: 0.8;
+  padding: 10px 20px;
+}
+
+.city-name {
+  color: #f5f7f2;
+  font-weight: bold;
+  font-size: 40px;
+  text-transform: capitalize;
+}
+
+.row {
+  margin-right: 0;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.current-info {
+  color: #f5f7f2;
+  margin: 0;
+  padding: 0;
+  padding-top: 10px;
+}
+
+.current-weather {
+  padding-top: 20px;
+}
+
+#temperature {
+  color: #f5f7f2;
+  font-size: 96px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.units {
+  position: relative;
+  font-size: 20px;
+  top: -60px;
+}
+
+.units .active {
+  color: #f5f7f2;
+  cursor: default;
+  text-decoration: none;
+}
+
+.units .active:hover {
+  text-decoration: none;
+}
+
+.card-text {
+  font-weight: bold;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#cityInput {
+  text-transform: capitalize;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#current-icon {
+  height: 120px;
+  width: 120px;
+  line-height: 1;
+  vertical-align: top;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#forecast {
+  padding-top: 30px;
+  opacity: 1;
 }
