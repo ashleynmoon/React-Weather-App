@@ -6,6 +6,7 @@ export default function Footer() {
     <a
       href="https://github.com/ashleynmoon/weather-app-project-moon"
       target="_blank"
+      rel="noreferrer"
       id="code-link"
     >
       Open-source code
@@ -15,6 +16,7 @@ export default function Footer() {
     <a
       href="https://www.instagram.com/rachael__j/?hl=en"
       target="_blank"
+      rel="noreferrer"
       id="code-link"
     >
       Background Images
