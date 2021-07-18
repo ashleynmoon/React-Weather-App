@@ -11,7 +11,7 @@ export default function Footer() {
     >
       Open-source code
     </a>
-    by Ashley Moon
+    {" "} by Ashley Moon
     <br />
     <a
       href="https://www.instagram.com/rachael__j/?hl=en"
@@ -19,7 +19,7 @@ export default function Footer() {
       rel="noreferrer"
       id="code-link"
     >
-      Background Images
+      Background Images {" "}
     </a>
     provided by Rachael Mckenny
   </div>;
