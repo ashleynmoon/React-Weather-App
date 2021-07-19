@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import FormattedDate from "./FormattedDate";
 import axios from "axios";
 import './App.css';
 
@@ -75,7 +76,7 @@ return (
             <div className="row current-info">
               <div className="col-6 text-start">
                 <ul>
-                  <li id="dateAndTime">Sunday June 6 ~ 9:00PM</li>
+                  <li id="dateAndTime"><FormattedDate /></li>
                   <li id="description">{weatherData.description}</li>
                 </ul>
               </div>
