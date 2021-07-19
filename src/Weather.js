@@ -2,25 +2,39 @@ import React, {useState} from 'react';
 import axios from "axios";
 import './App.css';
 
-export default function Weather() {
-  const [ready, setReady] = useState(false);
-  const [temperture, setTemperature] = useState(null);
+export default function Weather(props) {
+  const [weatherData, setWeatherData] = useState({ready: false});
+  const [city, setCity] = useState(props.defaultCity);
+  
   function handleResponse(response){
       console.log(response.data);
-      setTemperature(response.data.main.temp);
+      setWeatherData({
+          ready: true,
+          temperture: Math.round(response.data.main.temp),
+          humidity: response.data.main.humidity,
+          description: response.data.weather[0].description,
+          icon: response.data.weather[0].icon,
+          wind: response.data.wind.speed,
+          city: response.data.name,
+      });
   }
 
-let weatherDescription = {
-    currentCity: "Detroit",
-    dateAndTime: "Sunday June 6 9:00PM",
-    description: "Overcast Clouds",
-    feelsLike: "84",
-    humidity: "55",
-    wind: "1",
-    imgUrl: "http://openweathermap.org/img/wn/04d@2x.png"
+function handleSubmit(event) {
+    event.preventDefault();
+    search();
 }
 
-if (ready){
+function handleCityChange(event){
+    setCity(event.target.value);
+}
+
+function search(){
+  const apiKey = "6d17b1c8058ae49bbff41e55fd958e63";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(handleResponse);
+}  
+
+if (weatherData.ready){
 return (
     <div>
       <div className="container">
@@ -28,7 +42,7 @@ return (
           <div className="row">
             <div className="col-6 pt-2 city-name">
               <div className="text-start" id="currentCity">
-                {weatherDescription.currentCity}
+                Detroit
               </div>
             </div>
             <div className="col pt-4">
@@ -38,7 +52,6 @@ return (
                     type="text"
                     className="col form-control form-control"
                     id="cityInput"
-                    autocomplete="off"
                     placeholder="Enter City"
                   />
                   <button
@@ -62,8 +75,8 @@ return (
             <div className="row current-info">
               <div className="col-6 text-start">
                 <ul>
-                  <li id="dateAndTime">{weatherDescription.dateAndTime}</li>
-                  <li id="description">{weatherDescription.description}</li>
+                  <li id="dateAndTime">Sunday June 6 ~ 9:00PM</li>
+                  <li id="description">{weatherData.description}</li>
                 </ul>
               </div>
               <div className="col-6 text-end">
@@ -71,16 +84,16 @@ return (
                   <li>
                     <i className="fas fa-thermometer-half" id=""></i> Feels
                     Like:{" "}
-                    <span id="feels">{weatherDescription.feelsLike}</span>°
+                    <span id="feels">84</span>°
                   </li>
                   <li>
                     <i className="fas fa-burn"></i>
                     Humidity:{" "}
-                    <span id="humidity">{weatherDescription.humidity}</span>%
+                    <span id="humidity">{weatherData.humidity}</span>%
                   </li>
                   <li>
                     <i className="fas fa-wind"></i> Wind:{" "}
-                    <span id="wind">{weatherDescription.wind}</span> mph
+                    <span id="wind">{weatherData.wind}</span> mph
                   </li>
                 </ul>
               </div>
@@ -88,8 +101,8 @@ return (
 
             <div className="row current-weather">
               <div className="clearfix text-center">
-                <img src={weatherDescription.imgUrl} alt={weatherDescription.description} id="current-icon" />
-                <strong id="temperature"></strong>
+                <img src="http://openweathermap.org/img/wn/04d@2x.png"alt="Overcast Clouds" id="current-icon" />
+                <strong id="temperature">{weatherData.temperture}</strong>
                 <span className="units">
                   <a href="#" id="fahrenheit-link" className="active">
                     °F
@@ -105,16 +118,11 @@ return (
           </div>
         </div>
       </div>
-      <script src="src/index.js"></script>
     </div>
   );
 }
 else {
-  const apiKey = "6d17b1c8058ae49bbff41e55fd958e63";
-  let city = "Detroit";
-  let apiUrl = `api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-  axios.get(apiUrl).then(handleResponse);
-
-  return "Loading...";
-  } 
+search();
+return "Loading...";
+} 
 }
