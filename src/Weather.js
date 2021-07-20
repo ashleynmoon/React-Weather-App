@@ -15,7 +15,7 @@ export default function Weather(props) {
           humidity: response.data.main.humidity,
           description: response.data.weather[0].description,
           date: new Date(response.data.dt*1000),
-          icon: response.data.weather[0].icon,
+          icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`,
           wind: Math.round(response.data.wind.speed),
           city: response.data.name,
       });
@@ -32,7 +32,7 @@ function handleCityChange(event){
 
 function search(){
   const apiKey = "6d17b1c8058ae49bbff41e55fd958e63";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(handleResponse);
 }  
 
@@ -51,9 +51,8 @@ return (
               <form onSubmit={handleSubmit}>
                 <div className="row">
                   <input
-                    type="text"
-                    className="col form-control form-control"
-                    id="cityInput"
+                    type="search"
+                    className="col form-control"
                     placeholder="Enter City"
                     autoFocus="on"
                     onChange={handleCityChange}
@@ -87,7 +86,7 @@ return (
 
             <div className="row current-weather">
               <div className="clearfix text-center">
-                <img src="http://openweathermap.org/img/wn/04d@2x.png"alt="Overcast Clouds" id="current-icon" />
+                <img src={weatherData.icon} alt="Overcast Clouds" id="current-icon" />
                 <strong id="temperature">{weatherData.temperture}</strong>
                 <span className="units">
                   <a href="#" id="fahrenheit-link" className="active">
