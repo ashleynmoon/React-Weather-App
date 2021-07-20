@@ -8,12 +8,12 @@ export default function Weather(props) {
   const [city, setCity] = useState(props.defaultCity);
   
   function handleResponse(response){
-      console.log(response.data);
       setWeatherData({
           ready: true,
           temperture: Math.round(response.data.main.temp),
           humidity: response.data.main.humidity,
           description: response.data.weather[0].description,
+          date: new Date(response.data.dt*1000),
           icon: response.data.weather[0].icon,
           wind: response.data.wind.speed,
           city: response.data.name,
@@ -76,7 +76,7 @@ return (
             <div className="row current-info">
               <div className="col-6 text-start">
                 <ul>
-                  <li id="dateAndTime"><FormattedDate /></li>
+                  <li id="dateAndTime"><FormattedDate date={weatherData.date} /></li>
                   <li id="description">{weatherData.description}</li>
                 </ul>
               </div>
