@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import FormattedDate from "./FormattedDate";
+import WeatherInfo from "./WeatherInfo";
 import axios from "axios";
 import './App.css';
 
@@ -15,7 +16,7 @@ export default function Weather(props) {
           description: response.data.weather[0].description,
           date: new Date(response.data.dt*1000),
           icon: response.data.weather[0].icon,
-          wind: response.data.wind.speed,
+          wind: Math.round(response.data.wind.speed),
           city: response.data.name,
       });
   }
@@ -43,17 +44,19 @@ return (
           <div className="row">
             <div className="col-6 pt-2 city-name">
               <div className="text-start" id="currentCity">
-                Detroit
+                {city}
               </div>
             </div>
             <div className="col pt-4">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="row">
                   <input
                     type="text"
                     className="col form-control form-control"
                     id="cityInput"
                     placeholder="Enter City"
+                    autoFocus="on"
+                    onChange={handleCityChange}
                   />
                   <button
                     type="submit"
@@ -72,7 +75,6 @@ return (
                 </div>
               </form>
             </div>
-
             <div className="row current-info">
               <div className="col-6 text-start">
                 <ul>
@@ -80,24 +82,7 @@ return (
                   <li id="description">{weatherData.description}</li>
                 </ul>
               </div>
-              <div className="col-6 text-end">
-                <ul>
-                  <li>
-                    <i className="fas fa-thermometer-half" id=""></i> Feels
-                    Like:{" "}
-                    <span id="feels">84</span>°
-                  </li>
-                  <li>
-                    <i className="fas fa-burn"></i>
-                    Humidity:{" "}
-                    <span id="humidity">{weatherData.humidity}</span>%
-                  </li>
-                  <li>
-                    <i className="fas fa-wind"></i> Wind:{" "}
-                    <span id="wind">{weatherData.wind}</span> mph
-                  </li>
-                </ul>
-              </div>
+              <WeatherInfo data={weatherData}/>
             </div>
 
             <div className="row current-weather">
