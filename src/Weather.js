@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import FormattedDate from "./FormattedDate";
 import WeatherInfo from "./WeatherInfo";
+import WeatherTemperature from "./WeatherTemperature";
+
 import axios from "axios";
 import './App.css';
 
@@ -86,17 +88,7 @@ return (
 
             <div className="row current-weather">
               <div className="clearfix text-center">
-                <img src={weatherData.icon} alt="Overcast Clouds" id="current-icon" />
-                <strong id="temperature">{weatherData.temperture}</strong>
-                <span className="units">
-                  <a href="#" id="fahrenheit-link" className="active">
-                    °F
-                  </a>{" "}
-                  |
-                  <a href="#" id="celsius-link">
-                    °C{" "}
-                  </a>
-                </span>
+                <WeatherTemperature data={weatherData} />
               </div>
             </div>
             <div id="forecast"></div>
