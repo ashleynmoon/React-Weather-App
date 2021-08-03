@@ -46,7 +46,7 @@ return (
           <div className="row">
             <div className="col-6 pt-2 city-name">
               <div className="text-start" id="currentCity">
-                {city}
+                {weatherData.city}
               </div>
             </div>
             <div className="col pt-4">
