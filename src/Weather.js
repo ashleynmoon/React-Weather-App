@@ -40,7 +40,6 @@ function search(){
 
 if (weatherData.ready){
 return (
-    <div>
       <div className="container">
         <div className="weather-app">
           <div className="row">
@@ -95,7 +94,6 @@ return (
           </div>
         </div>
       </div>
-    </div>
   );
 }
 else {

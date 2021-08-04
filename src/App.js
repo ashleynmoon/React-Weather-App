@@ -1,14 +1,17 @@
 import React from 'react';
+import Background from './Background';
 import Weather from './Weather';
 import Footer from './Footer';
+import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <div className="container">
-        <Weather defaultCity="Detroit"/>
-        <Footer />
-      </div>
+      <Background />
+        <div className="container">
+         <Weather defaultCity="Detroit"/>
+          <Footer />
+        </div>
     </div>
   );
 }
