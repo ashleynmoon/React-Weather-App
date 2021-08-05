@@ -40,8 +40,7 @@ function search(){
 
 if (weatherData.ready){
 return (
-      <div className="container">
-        <div className="weather-app">
+         <div className="weather-app">
           <div className="row">
             <div className="col-6 pt-2 city-name">
               <div className="text-start" id="currentCity">
@@ -65,13 +64,6 @@ return (
                   >
                     <i className="fas fa-search"></i>
                   </button>
-                  <button
-                    type="submit"
-                    className="col-auto btn btn btn-outline-light"
-                    id="current-location"
-                  >
-                    <i className="fas fa-map-marker-alt"></i>
-                  </button>
                 </div>
               </form>
             </div>
@@ -93,7 +85,6 @@ return (
             <div id="forecast"></div>
           </div>
         </div>
-      </div>
   );
 }
 else {
