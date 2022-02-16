@@ -1,94 +1,95 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import FormattedDate from "./FormattedDate";
 import WeatherInfo from "./WeatherInfo";
 import WeatherTemperature from "./WeatherTemperature";
 
 import axios from "axios";
-import './App.css';
+import "./App.css";
 
 export default function Weather(props) {
-  const [weatherData, setWeatherData] = useState({ready: false});
+  const [weatherData, setWeatherData] = useState({ ready: false });
   const [city, setCity] = useState(props.defaultCity);
-  
-  function handleResponse(response){
-      setWeatherData({
-          ready: true,
-          temperture: Math.round(response.data.main.temp),
-          humidity: response.data.main.humidity,
-          description: response.data.weather[0].description,
-          date: new Date(response.data.dt*1000),
-          icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`,
-          wind: Math.round(response.data.wind.speed),
-          city: response.data.name,
-      });
+
+  function handleResponse(response) {
+    setWeatherData({
+      ready: true,
+      temperture: Math.round(response.data.main.temp),
+      humidity: response.data.main.humidity,
+      description: response.data.weather[0].description,
+      date: new Date(response.data.dt * 1000),
+      icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}.png`,
+      wind: Math.round(response.data.wind.speed),
+      city: response.data.name,
+    });
   }
 
-function handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
     search();
-}
+  }
 
-function handleCityChange(event){
+  function handleCityChange(event) {
     setCity(event.target.value);
-}
+  }
 
-function search(){
-  const apiKey = "6d17b1c8058ae49bbff41e55fd958e63";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
-  axios.get(apiUrl).then(handleResponse);
-}  
+  function search() {
+    const apiKey = "6d17b1c8058ae49bbff41e55fd958e63";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
+    axios.get(apiUrl).then(handleResponse);
+  }
 
-if (weatherData.ready){
-return (
-         <div className="weather-app">
-          <div className="row">
-            <div className="col-6 pt-2 city-name">
-              <div className="text-start" id="currentCity">
-                {weatherData.city}
-              </div>
+  if (weatherData.ready) {
+    return (
+      <div className="weather-app">
+        <div className="row">
+          <div className="col-6 pt-2 city-name">
+            <div className="text-start" id="currentCity">
+              {weatherData.city}
             </div>
-            <div className="col pt-4">
-              <form onSubmit={handleSubmit}>
-                <div className="row">
-                  <input
-                    type="search"
-                    className="col form-control"
-                    placeholder="Enter City"
-                    autoFocus="on"
-                    onChange={handleCityChange}
-                  />
-                  <button
-                    type="submit"
-                    className="col-auto btn btn btn-outline-light"
-                    id="search-city"
-                  >
-                    <i className="fas fa-search"></i>
-                  </button>
-                </div>
-              </form>
-            </div>
-            <div className="row current-info">
-              <div className="col-6 text-start">
-                <ul>
-                  <li id="dateAndTime"><FormattedDate date={weatherData.date} /></li>
-                  <li id="description">{weatherData.description}</li>
-                </ul>
-              </div>
-              <WeatherInfo data={weatherData}/>
-            </div>
-
-            <div className="row current-weather">
-              <div className="clearfix text-center">
-                <WeatherTemperature data={weatherData} />
-              </div>
-            </div>
-            <div id="forecast"></div>
           </div>
+          <div className="col pt-4">
+            <form onSubmit={handleSubmit}>
+              <div className="row">
+                <input
+                  type="search"
+                  className="col form-control"
+                  placeholder="Enter City"
+                  autoFocus="on"
+                  onChange={handleCityChange}
+                />
+                <button
+                  type="submit"
+                  className="col-auto btn btn btn-outline-light"
+                  id="search-city"
+                >
+                  <i className="fas fa-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+          <div className="row current-info">
+            <div className="col-6 text-start">
+              <ul>
+                <li id="dateAndTime">
+                  <FormattedDate date={weatherData.date} />
+                </li>
+                <li id="description">{weatherData.description}</li>
+              </ul>
+            </div>
+            <WeatherInfo data={weatherData} />
+          </div>
+
+          <div className="row current-weather">
+            <div className="clearfix text-center">
+              <WeatherTemperature data={weatherData} />
+            </div>
+          </div>
+          <div id="forecast"></div>
         </div>
-  );
-}
-else {
-search();
-return "Loading...";
-} 
+      </div>
+    );
+  } else {
+    search();
+    return "Loading...";
+  }
 }
